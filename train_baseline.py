@@ -175,17 +175,7 @@ def main():
         else "cpu"
     )
 
-    print(
-        "\nBuilding dataset...",
-        flush=True,
-    )
-
     ds = build_dataset()
-
-    print(
-        f"Dataset ready: {len(ds)} samples",
-        flush=True,
-    )
 
     loader = DataLoader(
         ds,
@@ -195,11 +185,6 @@ def main():
         pin_memory=torch.cuda.is_available(),
         drop_last=True,
         persistent_workers=True,
-    )
-
-    print(
-        "Building baseline model...",
-        flush=True,
     )
 
     model, diffusion = build_model(
@@ -303,10 +288,6 @@ def main():
             )
         ) + 1
 
-        print(
-            f"Resume step: {start_step}",
-            flush=True,
-        )
 
     iterator = iter(
         loader
@@ -357,7 +338,6 @@ def main():
             non_blocking=True,
         )
 
-        # Same diffusion-domain clean PET used in our directional run.
         x_start = (
             pet01
             * 2.0
@@ -507,10 +487,6 @@ def main():
                 flush=True,
             )
 
-    # =========================================================================
-    # Final summary
-    # =========================================================================
-
     elapsed = (
         time.time()
         - start
@@ -542,7 +518,7 @@ def main():
 
     print()
     print("=" * 88)
-    print("BASELINE 20K RESULT")
+    print("BASELINE 50K RESULT")
     print("=" * 88)
 
     print(
